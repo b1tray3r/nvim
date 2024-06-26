@@ -28,7 +28,7 @@ return {
       'nvim-lua/plenary.nvim',
     },
     keys = {
-      { '<leader>lg', '<cmd>LazyGit<cr>', desc = 'LazyGit' },
+      { '<leader>gg', '<cmd>LazyGit<cr>', desc = 'LazyGit' },
     },
   },
   { -- Jump around like a kangaroo
@@ -90,5 +90,48 @@ return {
         },
       },
     },
+  },
+  {
+    'rafaelsq/nvim-goc.lua',
+    config = function()
+      -- if set, when we switch between buffers, it will not split more than once. It will switch to the existing buffer instead
+      vim.opt.switchbuf = 'useopen'
+
+      local goc = require 'nvim-goc'
+      goc.setup { verticalSplit = true }
+
+      vim.keymap.set('n', '<Leader>cf', goc.Coverage, { silent = true }) -- run for the whole File
+      vim.keymap.set('n', '<Leader>ct', goc.CoverageFunc, { silent = true }) -- run only for a specific Test unit
+      vim.keymap.set('n', '<Leader>cc', goc.ClearCoverage, { silent = true }) -- clear coverage highlights
+
+      -- If you need custom arguments, you can supply an array as in the example below.
+      vim.keymap.set('n', '<Leader>crf', function()
+        goc.Coverage { '-race', '-count=1' }
+      end, { silent = true })
+      vim.keymap.set('n', '<Leader>crt', function()
+        goc.CoverageFunc { '-race', '-count=1' }
+      end, { silent = true })
+
+      cf = function(testCurrentFunction)
+        local cb = function(path)
+          if path then
+            -- `xdg-open|open` command performs the same function as double-clicking on the file.
+            -- change from `xdg-open` to `open` on MacOSx
+            vim.cmd(':silent exec "!xdg-open ' .. path .. '"')
+          end
+        end
+
+        if testCurrentFunction then
+          goc.CoverageFunc(nil, cb, 0)
+        else
+          goc.Coverage(nil, cb)
+        end
+      end
+
+      -- default colors
+      -- vim.api.nvim_set_hl(0, 'GocNormal', {link='Comment'})
+      -- vim.api.nvim_set_hl(0, 'GocCovered', {link='String'})
+      -- vim.api.nvim_set_hl(0, 'GocUncovered', {link='Error'})
+    end,
   },
 }
