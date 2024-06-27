@@ -1,5 +1,15 @@
 return {
   {
+    {
+      'akinsho/toggleterm.nvim',
+      version = '*',
+      opts = {
+        open_mapping = [[<A-d>]],
+        direction = 'float',
+      },
+    },
+  },
+  {
     'nvimdev/dashboard-nvim',
     event = 'VimEnter',
     config = function()
@@ -8,12 +18,6 @@ return {
       }
     end,
     dependencies = { { 'nvim-tree/nvim-web-devicons' } },
-  },
-  { -- Activity Tracker client for NeoVim
-    'vonpb/aw-watcher.nvim',
-    config = function()
-      require('aw-watcher').setup()
-    end,
   },
   { -- LazyGit in my NeoVim
     'kdheepak/lazygit.nvim',
