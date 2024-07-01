@@ -244,7 +244,7 @@ require('lazy').setup({
 
       -- Shortcut for searching in my Notes
       vim.keymap.set('n', '<leader>fo', function()
-        builtin.find_files { cwd = vim.fn.stdpath 'config' }
+        builtin.live_grep { cwd = '~/notes/' }
       end, { desc = '[F]ind in [O]bsidian notes' })
 
       -- Shortcut for searching your Neovim configuration files
