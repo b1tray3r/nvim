@@ -70,9 +70,9 @@ vim.opt.scrolloff = 10
 
 -- [[ Basic Keymaps ]]
 --  See `:help vim.keymap.set()`
-vim.opt.tabstop = 4
-vim.opt.softtabstop = 4
-vim.opt.shiftwidth = 4
+vim.opt.tabstop = 2
+vim.opt.softtabstop = 2
+vim.opt.shiftwidth = 2
 vim.opt.expandtab = true
 
 -- Set highlight on search, but clear on pressing <Esc> in normal mode
@@ -351,6 +351,7 @@ require('lazy').setup({
       vim.list_extend(ensure_installed, {
         'stylua',
         'gofumpt',
+        'goimports',
         'sqlfmt',
         'isort',
         'black',
